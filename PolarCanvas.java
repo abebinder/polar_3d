@@ -15,14 +15,14 @@ import java.awt.geom.*;
 import java.util.ArrayList;
 
 
-public class SimpleCanvas extends JPanel implements MouseListener
+public class PolarCanvas extends JPanel implements MouseListener
 {
 	Color myColor;
 	MatrixUtils utils;
 	Line2D.Double myLine;
 	int iterations;
 	int paint_num;
-	public SimpleCanvas ()
+	public PolarCanvas ()
 	{
 		utils=new MatrixUtils();
 		//The following is another way to guarantee correct size.	 
@@ -43,7 +43,8 @@ public class SimpleCanvas extends JPanel implements MouseListener
 		ArrayList<Point2D.Double>p_list=new ArrayList<Point2D.Double>();	
 		ArrayList<Point3D>three_list=new ArrayList<Point3D>();
 		
-		drawFormula2(g2d);
+		drawFormula3Helper1(g2d);
+		drawFormula3Helper2(g2d);
 
 	}
 	
@@ -202,16 +203,22 @@ public class SimpleCanvas extends JPanel implements MouseListener
 	
 	void drawFormula3Helper1(Graphics2D g2d){
 		ArrayList<Point2D.Double> p_list= new ArrayList<Point2D.Double>();
+		ArrayList<Point3D>three_list=new ArrayList<Point3D>();
+
 		for (int a = 0; a < 10; a++) {
 			p_list=new ArrayList<Point2D.Double>();
+			three_list=new ArrayList<Point3D>();
+
 			for (int i = 0; i < iterations; i++) {
 
 				double theta = ((double) i / 1000) * 2 * Math.PI;
 				double r = a*(1+2*Math.cos(theta));
-				Point2D.Double next = new Point2D.Double(r * Math.cos(theta), r * Math.sin(theta));
-				p_list.add(next);
+				Point3D next = new Point3D(r * Math.cos(theta), r * Math.sin(theta),0.0);
+				next=utils.rotateAroundY(next, theta);
+				three_list.add(next);
 			}
-			p_list = scalePointArr(10, p_list);
+			utils.scalePoint3D(three_list, 20);
+			p_list = utils.convert3DPointsTo2DPoints(three_list, 500);
 			drawPointArr(g2d, p_list);
 		}
 	}
@@ -219,17 +226,21 @@ public class SimpleCanvas extends JPanel implements MouseListener
 	
 	void drawFormula3Helper2(Graphics2D g2d){
 		ArrayList<Point2D.Double> p_list= new ArrayList<Point2D.Double>();
+		ArrayList<Point3D>three_list=new ArrayList<Point3D>();
 
 		for (int a = 0; a < 10; a++) {
 			p_list=new ArrayList<Point2D.Double>();
+			three_list=new ArrayList<Point3D>();
 			for (int i = 0; i < iterations; i++) {
 
 				double theta = ((double) i / 1000) * 2 * Math.PI;
 				double r = a*(1+Math.cos(theta));
-				Point2D.Double next = new Point2D.Double(r * Math.cos(theta), r * Math.sin(theta));
-				p_list.add(next);
+				Point3D next = new Point3D(r * Math.cos(theta), r * Math.sin(theta),0.0);
+				next=utils.rotateAroundY(next, theta);
+				three_list.add(next);
 			}
-			p_list = scalePointArr(10, p_list);
+			utils.scalePoint3D(three_list, 1);
+			p_list = utils.convert3DPointsTo2DPoints(three_list, 500);
 			drawPointArr(g2d, p_list);
 		}
 	}

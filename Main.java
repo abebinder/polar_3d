@@ -7,9 +7,12 @@
  *
  */
 
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.*;
 import javax.swing.*;
 
-public class BasicDraw
+public class Main
 {
    
     //For this type of program, event handling determines the path of 
@@ -17,17 +20,16 @@ public class BasicDraw
     //and then stops.
 
     public static void main(String[] args){
-		SimpleCanvas myCanvas = new SimpleCanvas();
+		PolarCanvas myCanvas = new PolarCanvas();
 		JFrame myFrame = new JFrame();
 		myFrame.setTitle("Basic Draw");
 		myFrame.setSize(300,300);
 
-		//Sets the window to close when upper right corner clicked.  
 		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		//Must use getContentPane() with JFrame.
-		myFrame.add(myCanvas);
-		myFrame.pack(); //resizes to preferred size for components.
+		Container cp=myFrame.getContentPane();
+		cp.setLayout(new BorderLayout());
+		cp.add(myCanvas, BorderLayout.CENTER);
+		myFrame.pack(); 
 		myFrame.setResizable(true);
 		myFrame.setVisible(true);
 		while (true) {
