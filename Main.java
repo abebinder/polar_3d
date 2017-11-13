@@ -21,6 +21,7 @@ public class Main
 
     public static void main(String[] args){
 		PolarCanvas myCanvas = new PolarCanvas();
+		ControlPanel cpanel=new ControlPanel(myCanvas);
 		JFrame myFrame = new JFrame();
 		myFrame.setTitle("Basic Draw");
 		myFrame.setSize(300,300);
@@ -29,6 +30,7 @@ public class Main
 		Container cp=myFrame.getContentPane();
 		cp.setLayout(new BorderLayout());
 		cp.add(myCanvas, BorderLayout.CENTER);
+		cp.add(cpanel,BorderLayout.EAST);
 		myFrame.pack(); 
 		myFrame.setResizable(true);
 		myFrame.setVisible(true);

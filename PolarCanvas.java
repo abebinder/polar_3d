@@ -43,43 +43,34 @@ public class PolarCanvas extends JPanel implements MouseListener
 		ArrayList<Point2D.Double>p_list=new ArrayList<Point2D.Double>();	
 		ArrayList<Point3D>three_list=new ArrayList<Point3D>();
 		
-		drawFormula3Helper1(g2d);
-		drawFormula3Helper2(g2d);
+		drawFormula7(g2d);
+		
 
 	}
 	
 	
 	
 	
-	void drawFormula8(Graphics2D g2d){
-		ArrayList<Point2D.Double> p_list= new ArrayList<Point2D.Double>();
 
-		for(int i=0; i<=5; i++){
-
-			double theta=((double)i/5)*Math.PI;
-			double r=1;
-			Point2D.Double next= new Point2D.Double(r*Math.cos(theta), r*Math.sin(theta));
-			p_list.add(next);
-		}
-		p_list=scalePointArr(50, p_list);
-		drawPointArr(g2d, p_list);
-	
-	}
 	
 	
 	
 	
 	void drawFormula7(Graphics2D g2d){
 		ArrayList<Point2D.Double> p_list= new ArrayList<Point2D.Double>();
+		ArrayList<Point3D> three_list=new ArrayList<Point3D>();
 
 		for(int i=0; i<iterations; i++){
+			double threedtheta=((double)i/1000)*2*Math.PI;
 
 			double theta=((double)i/1000)*8*Math.PI;
 			double r=Math.pow(Math.E, Math.cos(theta))-2*Math.cos(4*theta)+Math.pow(Math.cos(theta/4.0),3.0);
-			Point2D.Double next= new Point2D.Double(r*Math.cos(theta), r*Math.sin(theta));
-			p_list.add(next);
+			Point3D next= new Point3D(r*Math.cos(theta), r*Math.sin(theta),0.0);
+			next=utils.rotateAroundZ(next, threedtheta);
+			three_list.add(next);;
 		}
-		p_list=scalePointArr(50, p_list);
+		utils.scalePoint3D(three_list, 50);
+		p_list=utils.convert3DPointsTo2DPoints(three_list, 500);
 		drawPointArr(g2d, p_list);
 	
 	}
@@ -92,15 +83,20 @@ public class PolarCanvas extends JPanel implements MouseListener
 	
 	void drawFormula6(Graphics2D g2d){
 		ArrayList<Point2D.Double> p_list= new ArrayList<Point2D.Double>();
+		ArrayList<Point3D> three_list=new ArrayList<Point3D>();
 
 		for(int i=0; i<iterations; i++){
 
 			double theta=((double)i/1000)*24*Math.PI;
+			double threedtheta=((double)i/1000)*2*Math.PI;
+
 			double r=Math.pow(Math.E,(double) Math.cos(theta))-2*Math.cos(4*theta)+Math.pow(Math.sin(theta/12),5.0);
-			Point2D.Double next= new Point2D.Double(r*Math.cos(theta), r*Math.sin(theta));
-			p_list.add(next);
+			Point3D next= new Point3D(r*Math.cos(theta), r*Math.sin(theta),0.0);
+			next=utils.rotateAroundY(next, threedtheta);
+			three_list.add(next);;
 		}
-		p_list=scalePointArr(50, p_list);
+		utils.scalePoint3D(three_list, 50);
+		p_list=utils.convert3DPointsTo2DPoints(three_list, 500);
 		drawPointArr(g2d, p_list);
 	
 	}
@@ -112,15 +108,18 @@ public class PolarCanvas extends JPanel implements MouseListener
 	
 	void drawFormula5Helper2(Graphics2D g2d){
 		ArrayList<Point2D.Double> p_list= new ArrayList<Point2D.Double>();
+		ArrayList<Point3D> three_list=new ArrayList<Point3D>();
 
 		for(int i=0; i<iterations; i++){
 
 			double theta=((double)i/1000)*2*Math.PI;
 			double r=1+2*Math.cos(3*theta);
-			Point2D.Double next= new Point2D.Double(r*Math.cos(theta), r*Math.sin(theta));
-			p_list.add(next);
+			Point3D next= new Point3D(r*Math.cos(theta), r*Math.sin(theta),0.0);
+			next=utils.rotateAroundZ(next, theta);
+			three_list.add(next);;
 		}
-		p_list=scalePointArr(50, p_list);
+		utils.scalePoint3D(three_list, 50);
+		p_list=utils.convert3DPointsTo2DPoints(three_list, 500);
 		drawPointArr(g2d, p_list);
 	
 	}
@@ -128,15 +127,18 @@ public class PolarCanvas extends JPanel implements MouseListener
 	
 	void drawFormula5Helper1(Graphics2D g2d){
 		ArrayList<Point2D.Double> p_list= new ArrayList<Point2D.Double>();
+		ArrayList<Point3D> three_list=new ArrayList<Point3D>();
 
 		for(int i=0; i<iterations; i++){
 
 			double theta=((double)i/1000)*2*Math.PI;
 			double r=1+2*Math.cos(4*theta);
-			Point2D.Double next= new Point2D.Double(r*Math.cos(theta), r*Math.sin(theta));
-			p_list.add(next);
+			Point3D next= new Point3D(r*Math.cos(theta), r*Math.sin(theta),0.0);
+			next=utils.rotateAroundZ(next, theta);
+			three_list.add(next);;
 		}
-		p_list=scalePointArr(50, p_list);
+		utils.scalePoint3D(three_list, 50);
+		p_list=utils.convert3DPointsTo2DPoints(three_list, 500);
 		drawPointArr(g2d, p_list);
 	
 	}
@@ -146,6 +148,8 @@ public class PolarCanvas extends JPanel implements MouseListener
 	
 	void drawFormula4Helper1(Graphics2D g2d){
 		ArrayList<Point2D.Double> p_list= new ArrayList<Point2D.Double>();
+		ArrayList<Point3D> three_list=new ArrayList<Point3D>();
+
 		for(int i=0; i<iterations; i++){
 
 			double theta=((double)i/1000)*2*Math.PI;
@@ -153,16 +157,19 @@ public class PolarCanvas extends JPanel implements MouseListener
 			
 			if(d>=0){
 			double r=-Math.pow(d, 1/8.0);
-			Point2D.Double next= new Point2D.Double(r*Math.cos(theta), r*Math.sin(theta));
-			p_list.add(next);
+			Point3D next= new Point3D(r*Math.cos(theta), r*Math.sin(theta),0.0);
+			next=utils.rotateAroundY(next, theta);
+			three_list.add(next);;
 			}
 			else if(d<0){
-				Point2D.Double next = new Point2D.Double(0,  0);
-				p_list.add(next);
+				Point3D next = new Point3D(0, 0,0);
+				next=utils.rotateAroundY(next, theta);
+				three_list.add(next);
 			
 			}
 		}
-		p_list=scalePointArr(100, p_list);
+		utils.scalePoint3D(three_list, 50);
+		p_list=utils.convert3DPointsTo2DPoints(three_list, 500);
 		drawPointArr(g2d, p_list);
 
 
@@ -173,6 +180,7 @@ public class PolarCanvas extends JPanel implements MouseListener
 	
 	void drawFormula4Helper2(Graphics2D g2d){
 		ArrayList<Point2D.Double> p_list= new ArrayList<Point2D.Double>();
+		ArrayList<Point3D> three_list=new ArrayList<Point3D>();
 
 		for(int i=0; i<iterations; i++){
 
@@ -181,16 +189,20 @@ public class PolarCanvas extends JPanel implements MouseListener
 			
 			if(d>=0){
 			double r=Math.pow(d, 1/8.0);
-			Point2D.Double next= new Point2D.Double(r*Math.cos(theta), r*Math.sin(theta));
-			p_list.add(next);
+			Point3D next= new Point3D(r*Math.cos(theta), r*Math.sin(theta),0.0);
+			next=utils.rotateAroundY(next, theta);
+			three_list.add(next);
+			
 			}
 			else if(d<0){
-				Point2D.Double next = new Point2D.Double(0,  0);
-				p_list.add(next);
+				Point3D next = new Point3D(0, 0,0);
+				next=utils.rotateAroundY(next, theta);
+				three_list.add(next);
 			
 			}
 		}
-		p_list=scalePointArr(100, p_list);
+		utils.scalePoint3D(three_list, 50);
+		p_list=utils.convert3DPointsTo2DPoints(three_list, 500);
 		drawPointArr(g2d, p_list);
 
 
