@@ -42,6 +42,7 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 	private JButton drawAroundZ;
 	private JButton drawAroundY;
 	private JButton btnDrawFigureNormally;
+	private JButton btnDrawCustomFormula;
  
  	public ControlPanel(PolarCanvas cp)
 	{
@@ -78,6 +79,10 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 		drawFormulaSevenButton = new JButton("Draw Formula 7");
 		drawFormulaSevenButton.addActionListener(this);
 		r.add(drawFormulaSevenButton);
+		
+		btnDrawCustomFormula = new JButton("Draw Custom Formula");
+		btnDrawCustomFormula.addActionListener(this);
+		r.add(btnDrawCustomFormula);
 		
 		JPanel panel = new JPanel();
 		
@@ -252,6 +257,9 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 	   }
 	   else if((JButton)e.getSource()==drawFormulaSevenButton){
 		   cPanel.whichToDraw=7;
+	   }
+	   else if((JButton)e.getSource()==btnDrawCustomFormula){
+		   cPanel.whichToDraw=8;
 	   }
 	   
 

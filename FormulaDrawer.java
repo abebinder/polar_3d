@@ -3,19 +3,48 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import javaluator.DoubleEvaluator;
+import javaluator.StaticVariableSet;
+
 public class FormulaDrawer {
 	PolarCanvas pCanvas;
 	MatrixUtils utils;
 	int rotateCamera;
 	int rotateFig;
+	DoubleEvaluator eval;
 
 	FormulaDrawer(PolarCanvas pCanvas){
+		eval=new DoubleEvaluator();
 		this.pCanvas=pCanvas;
 		utils=new MatrixUtils();
 		rotateCamera=0;
 		rotateFig=0;
 	}
 	
+	
+	void drawCustomFormula(Graphics2D g2d){
+		String equation="cos(3*x)";
+		StaticVariableSet<Double> variables = new StaticVariableSet<Double>();
+		ArrayList<Point2D.Double> p_list= new ArrayList<Point2D.Double>();
+		ArrayList<Point3D> three_list=new ArrayList<Point3D>();
+
+		for(int i=0; i<pCanvas.iterations; i++){
+
+			double theta=((double)i/1000)*8*Math.PI;
+			variables.set("x", theta);
+			double r=eval.evaluate(equation,variables);
+			Point3D next= new Point3D(r*Math.cos(theta), r*Math.sin(theta),0.0);
+			next=figRotate(next, theta);
+			three_list.add(next);;
+		}
+		three_list=CameraRotate(three_list);
+		utils.scalePoint3D(three_list, 100);
+		p_list=utils.convert3DPointsTo2DPoints(three_list, 500);
+		drawPointArr(g2d, p_list);
+
+
+
+	}
 	
 	void drawFormula7(Graphics2D g2d){
 		ArrayList<Point2D.Double> p_list= new ArrayList<Point2D.Double>();

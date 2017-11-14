@@ -72,6 +72,9 @@ public class PolarCanvas extends JPanel
 		else if(whichToDraw==7){
 			drawer.drawFormula7(g2d);
 		}
+		else if(whichToDraw==8){
+			drawer.drawCustomFormula(g2d);
+		}
 		
 		
 		
