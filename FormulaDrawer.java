@@ -7,11 +7,13 @@ public class FormulaDrawer {
 	PolarCanvas pCanvas;
 	MatrixUtils utils;
 	int rotateCamera;
+	int rotateFig;
 
 	FormulaDrawer(PolarCanvas pCanvas){
 		this.pCanvas=pCanvas;
 		utils=new MatrixUtils();
 		rotateCamera=0;
+		rotateFig=0;
 	}
 	
 	
@@ -25,7 +27,7 @@ public class FormulaDrawer {
 			double theta=((double)i/1000)*8*Math.PI;
 			double r=Math.pow(Math.E, Math.cos(theta))-2*Math.cos(4*theta)+Math.pow(Math.cos(theta/4.0),3.0);
 			Point3D next= new Point3D(r*Math.cos(theta), r*Math.sin(theta),0.0);
-			next=utils.rotateAroundZ(next, threedtheta);
+			next=figRotate(next, theta);
 			three_list.add(next);;
 		}
 		three_list=CameraRotate(three_list);
@@ -51,7 +53,7 @@ public class FormulaDrawer {
 			double threedtheta=((double)i/1000)*2*Math.PI;
 			double r=Math.pow(Math.E,(double) Math.cos(theta))-2*Math.cos(4*theta)+Math.pow(Math.sin(theta/12),5.0);
 			Point3D next= new Point3D(r*Math.cos(theta), r*Math.sin(theta),0.0);
-			next=utils.rotateAroundY(next, threedtheta);
+			next=figRotate(next, theta);
 			three_list.add(next);;
 		}
 		three_list=CameraRotate(three_list);
@@ -75,7 +77,7 @@ public class FormulaDrawer {
 			double theta=((double)i/1000)*2*Math.PI;
 			double r=1+2*Math.cos(3*theta);
 			Point3D next= new Point3D(r*Math.cos(theta), r*Math.sin(theta),0.0);
-			next=utils.rotateAroundZ(next, theta);
+			next=figRotate(next, theta);
 			three_list.add(next);;
 		}
 		three_list=CameraRotate(three_list);
@@ -95,7 +97,7 @@ public class FormulaDrawer {
 			double theta=((double)i/1000)*2*Math.PI;
 			double r=1+2*Math.cos(4*theta);
 			Point3D next= new Point3D(r*Math.cos(theta), r*Math.sin(theta),0.0);
-			next=utils.rotateAroundZ(next, theta);
+			next=figRotate(next, theta);
 			three_list.add(next);;
 		}
 		three_list=CameraRotate(three_list);
@@ -120,12 +122,12 @@ public class FormulaDrawer {
 			if(d>=0){
 			double r=-Math.pow(d, 1/8.0);
 			Point3D next= new Point3D(r*Math.cos(theta), r*Math.sin(theta),0.0);
-			//next=utils.rotateAroundZ(next, theta);
+			next=figRotate(next,theta);
 			three_list.add(next);;
 			}
 			else if(d<0){
 				Point3D next = new Point3D(0, 0,0);
-				//next=utils.rotateAroundZ(next, theta);
+				next=figRotate(next, theta);
 				three_list.add(next);
 			
 			}
@@ -153,16 +155,13 @@ public class FormulaDrawer {
 			if(d>=0){
 			double r=Math.pow(d, 1/8.0);
 			Point3D next= new Point3D(r*Math.cos(theta), r*Math.sin(theta),0.0);
-			if(i==0&&pCanvas.iterations==400){
-				System.out.println("debug");
-			}
-			//next=utils.rotateAroundZ(next, theta);
+			next=figRotate(next, theta);
 			three_list.add(next);
 			
 			}
 			else if(d<0){
 				Point3D next = new Point3D(0, 0,0);
-				//next=utils.rotateAroundZ(next, theta);
+				next=figRotate(next, theta);
 				three_list.add(next);
 			
 			}
@@ -192,7 +191,7 @@ public class FormulaDrawer {
 				 theta = ((double) i / 1000) * 2 * Math.PI;
 				double r = a*(1+2*Math.cos(theta));
 				Point3D next = new Point3D(r * Math.cos(theta), r * Math.sin(theta),0.0);
-				next=utils.rotateAroundX(next, theta);
+				next=figRotate(next, theta);
 				three_list.add(next);
 			}
 			three_list=CameraRotate(three_list);
@@ -216,7 +215,7 @@ public class FormulaDrawer {
 				theta = ((double) i / 1000) * 2 * Math.PI;
 				double r = a*(1+Math.cos(theta));
 				Point3D next = new Point3D(r * Math.cos(theta), r * Math.sin(theta),0.0);
-				next=utils.rotateAroundX(next, theta);
+				next=figRotate(next, theta);
 				three_list.add(next);
 			}
 			three_list=CameraRotate(three_list);
@@ -242,7 +241,7 @@ public class FormulaDrawer {
 				theta = ((double) i / 1000) * 2 * Math.PI;
 				double r = a*theta;
 				Point3D next= new Point3D(r*Math.cos(theta), r*Math.sin(theta),0.0);
-				next=utils.rotateAroundY(next, theta);
+				next=figRotate(next, theta);
 				three_list.add(next);
 			}
 			three_list=CameraRotate(three_list);
@@ -259,21 +258,7 @@ public class FormulaDrawer {
 	
 	
 	
-	ArrayList<Point3D> CameraRotate(ArrayList<Point3D>three_list){
-		double theta=((double)pCanvas.iterations/1000)*2*Math.PI;
-		if(rotateCamera==1){
-			three_list=utils.rotateAllPointsAroundX((ArrayList<Point3D>)three_list.clone(), -theta);
-
-		}
-		if(rotateCamera==2){
-		three_list=utils.rotateAllPointsAroundY((ArrayList<Point3D>)three_list.clone(), -theta);
-		}
-		if(rotateCamera==3){
-			three_list=utils.rotateAllPointsAroundZ((ArrayList<Point3D>)three_list.clone(), -theta);
-
-		}
-		return three_list;
-	}
+	
 	
 	
 
@@ -288,7 +273,7 @@ public class FormulaDrawer {
 			theta=((double)i/1000)*2*Math.PI;
 			double r=Math.cos(3*theta);
 			Point3D next= new Point3D(r*Math.cos(theta), r*Math.sin(theta),0.0);
-			next=utils.rotateAroundY(next, theta);
+			next=figRotate(next, theta);
 			//next=utils.rotateAroundX(next, Math.toRadians(30));
 			if(i==998){
 				System.out.println("d");
@@ -307,8 +292,35 @@ public class FormulaDrawer {
 
 	}
 
+	
+	Point3D figRotate(Point3D next, double theta){
+		if(rotateFig==1){
+			next=utils.rotateAroundX(next, theta);
+		}
+		if(rotateFig==2){
+			next=utils.rotateAroundY(next, theta);
+		}
+		if(rotateFig==3){
+			next=utils.rotateAroundZ(next, theta);
+		}
+		return next;
+	}
 
+	ArrayList<Point3D> CameraRotate(ArrayList<Point3D>three_list){
+		double theta=((double)pCanvas.iterations/1000)*2*Math.PI;
+		if(rotateCamera==1){
+			three_list=utils.rotateAllPointsAroundX((ArrayList<Point3D>)three_list.clone(), -theta);
 
+		}
+		if(rotateCamera==2){
+		three_list=utils.rotateAllPointsAroundY((ArrayList<Point3D>)three_list.clone(), -theta);
+		}
+		if(rotateCamera==3){
+			three_list=utils.rotateAllPointsAroundZ((ArrayList<Point3D>)three_list.clone(), -theta);
+
+		}
+		return three_list;
+	}
 	
 
 	void drawPointArr(Graphics2D g2d, ArrayList<Point2D.Double> l){

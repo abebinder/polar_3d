@@ -30,7 +30,7 @@ public class PolarCanvas extends JPanel
 		utils=new MatrixUtils();
 		//The following is another way to guarantee correct size.	 
 		setPreferredSize(new Dimension(500,500));
-		setBackground(Color.lightGray);
+		setBackground(Color.WHITE);
 		iterations=0;
 		paint_num=5;
 		whichToDraw=1;
@@ -41,6 +41,7 @@ public class PolarCanvas extends JPanel
 		super.paintComponent(g);  //without this no background color set.
 
 		Graphics2D g2d = (Graphics2D)g; //cast so we can use JAVA2D.
+		g2d.setStroke(new BasicStroke(2));
 		g2d.translate(getWidth()/2,getHeight()/2);
 		g2d.scale(1, -1);
 		ArrayList<Point2D.Double>p_list=new ArrayList<Point2D.Double>();	

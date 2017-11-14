@@ -89,15 +89,19 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 		panel_5.setLayout(new BoxLayout(panel_5, BoxLayout.Y_AXIS));
 		
 		btnDrawFigureNormally = new JButton("Draw Figure Normally");
+		btnDrawFigureNormally.addActionListener(this);
 		panel_5.add(btnDrawFigureNormally);
 		
 		drawAroundXAxis = new JButton("Draw Figure Around X");
+		drawAroundXAxis.addActionListener(this);
 		panel_5.add(drawAroundXAxis);
 		
 		drawAroundY = new JButton("Draw Figure Around Y Axis");
+		drawAroundY.addActionListener(this);
 		panel_5.add(drawAroundY);
 		
 		drawAroundZ = new JButton("Draw Figure Around Z Axis");
+		drawAroundZ.addActionListener(this);
 		panel_5.add(drawAroundZ);
 		
 		panel_4 = new JPanel();
@@ -198,6 +202,20 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 	 }
    
    public void actionPerformed(ActionEvent e){
+	   
+	   if((JButton)e.getSource()==btnDrawFigureNormally){
+		   cPanel.drawer.rotateFig=0;
+	   }
+	   if((JButton)e.getSource()==drawAroundXAxis){
+		   cPanel.drawer.rotateFig=1;
+	   }
+	   if((JButton)e.getSource()==drawAroundY){
+		   cPanel.drawer.rotateFig=2;
+	   }
+	   if((JButton)e.getSource()==drawAroundZ){
+		   cPanel.drawer.rotateFig=3;
+	   }
+	   
 	   
 	   if((JButton)e.getSource()==noCameraRotation){
 		   cPanel.drawer.rotateCamera=0;
