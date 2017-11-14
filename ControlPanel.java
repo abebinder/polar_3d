@@ -21,8 +21,8 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 	private JTextField yDirField;
 	private JLabel plusLabel;
 	private JLabel tLabel;
-	private JToggleButton noCameraRotation;
-	private JToggleButton rotateCameraAroundY;
+	private JButton noCameraRotation;
+	private JButton rotateCameraAroundY;
 	private JButton btnNewButton;
 	private JLabel lblCustomVectorAngle;
 	private JPanel panel_3;
@@ -30,12 +30,18 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 	private JButton drawFormulaOneButton;
 	private JButton drawFormulaTwoButton;
 	private JButton drawFormula3Button;
-	private JToggleButton rotateCameraAroundX;
-	private JToggleButton rotateCameraAroundZ;
+	private JButton rotateCameraAroundX;
+	private JButton rotateCameraAroundZ;
 	private JButton drawFormulaFourButton;
 	private JButton drawFormulaFiveButton;
 	private JButton drawFormulaSixButton;
 	private JButton drawFormulaSevenButton;
+	private JPanel panel_4;
+	private JPanel panel_5;
+	private JButton drawAroundXAxis;
+	private JButton drawAroundZ;
+	private JButton drawAroundY;
+	private JButton btnDrawFigureNormally;
  
  	public ControlPanel(PolarCanvas cp)
 	{
@@ -76,21 +82,43 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 		JPanel panel = new JPanel();
 		
 		add(panel, BorderLayout.CENTER);
-		panel.setLayout(new BorderLayout(0, 0));
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
-		noCameraRotation = new JToggleButton("No Camera Rotation");
+		panel_5 = new JPanel();
+		panel.add(panel_5);
+		panel_5.setLayout(new BoxLayout(panel_5, BoxLayout.Y_AXIS));
+		
+		btnDrawFigureNormally = new JButton("Draw Figure Normally");
+		panel_5.add(btnDrawFigureNormally);
+		
+		drawAroundXAxis = new JButton("Draw Figure Around X");
+		panel_5.add(drawAroundXAxis);
+		
+		drawAroundY = new JButton("Draw Figure Around Y Axis");
+		panel_5.add(drawAroundY);
+		
+		drawAroundZ = new JButton("Draw Figure Around Z Axis");
+		panel_5.add(drawAroundZ);
+		
+		panel_4 = new JPanel();
+		panel.add(panel_4);
+		panel_4.setLayout(new BoxLayout(panel_4, BoxLayout.Y_AXIS));
+		
+		noCameraRotation = new JButton("No Camera Rotation");
+		panel_4.add(noCameraRotation);
 		noCameraRotation.addActionListener(this);
-		panel.add(noCameraRotation, BorderLayout.NORTH);
 		
-		rotateCameraAroundY = new JToggleButton("Rotate Camera Around Y");
+		rotateCameraAroundX = new JButton("rotate camera around x");
+		panel_4.add(rotateCameraAroundX);
+		rotateCameraAroundX.addActionListener(this);
+		
+		rotateCameraAroundZ = new JButton("Rotate Camera Around Z");
+		panel_4.add(rotateCameraAroundZ);
+		rotateCameraAroundZ.addActionListener(this);
+		
+		rotateCameraAroundY = new JButton("Rotate Camera Around Y");
+		panel_4.add(rotateCameraAroundY);
 		rotateCameraAroundY.addActionListener(this);
-		panel.add(rotateCameraAroundY, BorderLayout.SOUTH);
-		
-		rotateCameraAroundX = new JToggleButton("New toggle button");
-		panel.add(rotateCameraAroundX, BorderLayout.WEST);
-		
-		rotateCameraAroundZ = new JToggleButton("Rotate Camera Around Z");
-		panel.add(rotateCameraAroundZ, BorderLayout.EAST);
 		
 		JPanel panel_1 = new JPanel();
 		add(panel_1, BorderLayout.EAST);
@@ -170,6 +198,20 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 	 }
    
    public void actionPerformed(ActionEvent e){
+	   
+	   if((JButton)e.getSource()==noCameraRotation){
+		   cPanel.drawer.rotateCamera=0;
+	   }
+	   if((JButton)e.getSource()==rotateCameraAroundX){
+		   cPanel.drawer.rotateCamera=1;
+	   }
+	   if((JButton)e.getSource()==rotateCameraAroundY){
+		   cPanel.drawer.rotateCamera=2;
+	   }
+	   if((JButton)e.getSource()==rotateCameraAroundZ){
+		   cPanel.drawer.rotateCamera=3;
+	   }
+	   
 	   
 
 	   if((JButton)e.getSource()==drawFormulaOneButton){

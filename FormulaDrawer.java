@@ -6,10 +6,12 @@ import java.util.ArrayList;
 public class FormulaDrawer {
 	PolarCanvas pCanvas;
 	MatrixUtils utils;
+	int rotateCamera;
 
 	FormulaDrawer(PolarCanvas pCanvas){
 		this.pCanvas=pCanvas;
 		utils=new MatrixUtils();
+		rotateCamera=0;
 	}
 	
 	
@@ -26,6 +28,7 @@ public class FormulaDrawer {
 			next=utils.rotateAroundZ(next, threedtheta);
 			three_list.add(next);;
 		}
+		three_list=CameraRotate(three_list);
 		utils.scalePoint3D(three_list, 50);
 		p_list=utils.convert3DPointsTo2DPoints(three_list, 500);
 		drawPointArr(g2d, p_list);
@@ -51,6 +54,7 @@ public class FormulaDrawer {
 			next=utils.rotateAroundY(next, threedtheta);
 			three_list.add(next);;
 		}
+		three_list=CameraRotate(three_list);
 		utils.scalePoint3D(three_list, 50);
 		p_list=utils.convert3DPointsTo2DPoints(three_list, 500);
 		drawPointArr(g2d, p_list);
@@ -74,6 +78,7 @@ public class FormulaDrawer {
 			next=utils.rotateAroundZ(next, theta);
 			three_list.add(next);;
 		}
+		three_list=CameraRotate(three_list);
 		utils.scalePoint3D(three_list, 50);
 		p_list=utils.convert3DPointsTo2DPoints(three_list, 500);
 		drawPointArr(g2d, p_list);
@@ -93,6 +98,7 @@ public class FormulaDrawer {
 			next=utils.rotateAroundZ(next, theta);
 			three_list.add(next);;
 		}
+		three_list=CameraRotate(three_list);
 		utils.scalePoint3D(three_list, 50);
 		p_list=utils.convert3DPointsTo2DPoints(three_list, 500);
 		drawPointArr(g2d, p_list);
@@ -124,6 +130,7 @@ public class FormulaDrawer {
 			
 			}
 		}
+		three_list=CameraRotate(three_list);
 		utils.scalePoint3D(three_list, 100);
 		p_list=utils.convert3DPointsTo2DPoints(three_list, 500);
 		drawPointArr(g2d, p_list);
@@ -162,7 +169,7 @@ public class FormulaDrawer {
 		
 		}
 
-		
+		three_list=CameraRotate(three_list);
 		utils.scalePoint3D(three_list, 100);
 		p_list=utils.convert3DPointsTo2DPoints(three_list, 500);
 		drawPointArr(g2d, p_list);
@@ -188,8 +195,7 @@ public class FormulaDrawer {
 				next=utils.rotateAroundX(next, theta);
 				three_list.add(next);
 			}
-			theta=((double)pCanvas.iterations/1000)*2*Math.PI;
-			three_list=utils.rotateAllPointsAroundY((ArrayList<Point3D>)three_list.clone(), -theta);
+			three_list=CameraRotate(three_list);
 			utils.scalePoint3D(three_list, 10);
 			p_list = utils.convert3DPointsTo2DPoints(three_list, 500);
 			drawPointArr(g2d, p_list);
@@ -213,8 +219,7 @@ public class FormulaDrawer {
 				next=utils.rotateAroundX(next, theta);
 				three_list.add(next);
 			}
-			theta=((double)pCanvas.iterations/1000)*2*Math.PI;
-			three_list=utils.rotateAllPointsAroundY((ArrayList<Point3D>)three_list.clone(), -theta);
+			three_list=CameraRotate(three_list);
 			utils.scalePoint3D(three_list, 50);
 			p_list = utils.convert3DPointsTo2DPoints(three_list, 500);
 			drawPointArr(g2d, p_list);
@@ -240,8 +245,7 @@ public class FormulaDrawer {
 				next=utils.rotateAroundY(next, theta);
 				three_list.add(next);
 			}
-			theta=((double)pCanvas.iterations/1000)*2*Math.PI;
-			three_list=utils.rotateAllPointsAroundX((ArrayList<Point3D>)three_list.clone(), -theta);
+			three_list=CameraRotate(three_list);
 			utils.scalePoint3D(three_list, 10);
 			p_list=utils.convert3DPointsTo2DPoints(three_list, 5000);
 			drawPointArr(g2d, p_list);
@@ -255,7 +259,21 @@ public class FormulaDrawer {
 	
 	
 	
-	
+	ArrayList<Point3D> CameraRotate(ArrayList<Point3D>three_list){
+		double theta=((double)pCanvas.iterations/1000)*2*Math.PI;
+		if(rotateCamera==1){
+			three_list=utils.rotateAllPointsAroundX((ArrayList<Point3D>)three_list.clone(), -theta);
+
+		}
+		if(rotateCamera==2){
+		three_list=utils.rotateAllPointsAroundY((ArrayList<Point3D>)three_list.clone(), -theta);
+		}
+		if(rotateCamera==3){
+			three_list=utils.rotateAllPointsAroundZ((ArrayList<Point3D>)three_list.clone(), -theta);
+
+		}
+		return three_list;
+	}
 	
 	
 
@@ -271,15 +289,15 @@ public class FormulaDrawer {
 			double r=Math.cos(3*theta);
 			Point3D next= new Point3D(r*Math.cos(theta), r*Math.sin(theta),0.0);
 			next=utils.rotateAroundY(next, theta);
-			next=utils.rotateAroundX(next, Math.toRadians(30));
+			//next=utils.rotateAroundX(next, Math.toRadians(30));
 			if(i==998){
 				System.out.println("d");
 			}
 			three_list.add(next);
 			
 		}
-			theta=((double)pCanvas.iterations/1000)*2*Math.PI;
-			three_list=utils.rotateAllPointsAroundY((ArrayList<Point3D>)three_list.clone(), -theta);
+			three_list=CameraRotate(three_list);
+			
 			utils.scalePoint3D(three_list,100);
 			p_list=utils.convert3DPointsTo2DPoints(three_list, 5000);
 			drawPointArr(g2d, p_list);
