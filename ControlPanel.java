@@ -21,15 +21,21 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 	private JTextField yDirField;
 	private JLabel plusLabel;
 	private JLabel tLabel;
-	private JToggleButton toggleCustomVector;
-	private JToggleButton toggleWireFrame;
+	private JToggleButton noCameraRotation;
+	private JToggleButton rotateCameraAroundY;
 	private JButton btnNewButton;
 	private JLabel lblCustomVectorAngle;
 	private JPanel panel_3;
 	private JTextArea txtrUseTheSlider;
-	private JButton btnNewButton_1;
-	private JButton btnNewButton_2;
-	private JButton btnNewButton_3;
+	private JButton drawFormulaOneButton;
+	private JButton drawFormulaTwoButton;
+	private JButton drawFormula3Button;
+	private JToggleButton rotateCameraAroundX;
+	private JToggleButton rotateCameraAroundZ;
+	private JButton drawFormulaFourButton;
+	private JButton drawFormulaFiveButton;
+	private JButton drawFormulaSixButton;
+	private JButton drawFormulaSevenButton;
  
  	public ControlPanel(PolarCanvas cp)
 	{
@@ -39,27 +45,52 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 		add(r, BorderLayout.WEST);
 		r.setLayout(new BoxLayout(r, BoxLayout.Y_AXIS));
 		
-		btnNewButton_1 = new JButton("New button");
-		r.add(btnNewButton_1);
+		drawFormulaOneButton = new JButton("Draw Formula 1");
+		drawFormulaOneButton.addActionListener(this);
+		r.add(drawFormulaOneButton);
 		
-		btnNewButton_2 = new JButton("New button");
-		r.add(btnNewButton_2);
+		drawFormulaTwoButton = new JButton("Draw Formula 2");
+		drawFormulaTwoButton.addActionListener(this);
+		r.add(drawFormulaTwoButton);
 		
-		btnNewButton_3 = new JButton("New button");
-		r.add(btnNewButton_3);
+		drawFormula3Button = new JButton("Draw Formula 3");
+		drawFormula3Button.addActionListener(this);
+		r.add(drawFormula3Button);
+		
+		drawFormulaFourButton = new JButton("Draw Formula 4");
+		drawFormulaFourButton.addActionListener(this);
+		r.add(drawFormulaFourButton);
+		
+		drawFormulaFiveButton = new JButton("Draw Formula 5");
+		drawFormulaFiveButton.addActionListener(this);
+		r.add(drawFormulaFiveButton);
+		
+		drawFormulaSixButton = new JButton("Draw Formula 6");
+		drawFormulaSixButton.addActionListener(this);
+		r.add(drawFormulaSixButton);
+		
+		drawFormulaSevenButton = new JButton("Draw Formula 7");
+		drawFormulaSevenButton.addActionListener(this);
+		r.add(drawFormulaSevenButton);
 		
 		JPanel panel = new JPanel();
 		
 		add(panel, BorderLayout.CENTER);
 		panel.setLayout(new BorderLayout(0, 0));
 		
-		toggleCustomVector = new JToggleButton("Toggle Customm Axis");
-		toggleCustomVector.addActionListener(this);
-		panel.add(toggleCustomVector, BorderLayout.NORTH);
+		noCameraRotation = new JToggleButton("No Camera Rotation");
+		noCameraRotation.addActionListener(this);
+		panel.add(noCameraRotation, BorderLayout.NORTH);
 		
-		toggleWireFrame = new JToggleButton("Toggle Wire Frame");
-		toggleWireFrame.addActionListener(this);
-		panel.add(toggleWireFrame, BorderLayout.SOUTH);
+		rotateCameraAroundY = new JToggleButton("Rotate Camera Around Y");
+		rotateCameraAroundY.addActionListener(this);
+		panel.add(rotateCameraAroundY, BorderLayout.SOUTH);
+		
+		rotateCameraAroundX = new JToggleButton("New toggle button");
+		panel.add(rotateCameraAroundX, BorderLayout.WEST);
+		
+		rotateCameraAroundZ = new JToggleButton("Rotate Camera Around Z");
+		panel.add(rotateCameraAroundZ, BorderLayout.EAST);
 		
 		JPanel panel_1 = new JPanel();
 		add(panel_1, BorderLayout.EAST);
@@ -136,14 +167,32 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
    public void stateChanged(ChangeEvent ev) //sets the slider values to their appropriate attributes in CubePanel
    {
 	 
-	  
-
-	 }//end stateChanged
+	 }
    
    public void actionPerformed(ActionEvent e){
 	   
 
-	   
+	   if((JButton)e.getSource()==drawFormulaOneButton){
+		   cPanel.whichToDraw=1;
+	   }
+	   else if((JButton)e.getSource()==drawFormulaTwoButton){
+		   cPanel.whichToDraw=2;
+	   }
+	   else if((JButton)e.getSource()==drawFormula3Button){
+		   cPanel.whichToDraw=3;
+	   }
+	   else if((JButton)e.getSource()==drawFormulaFourButton){
+		   cPanel.whichToDraw=4;
+	   }
+	   else if((JButton)e.getSource()==drawFormulaFiveButton){
+		   cPanel.whichToDraw=5;
+	   }
+	   else if((JButton)e.getSource()==drawFormulaSixButton){
+		   cPanel.whichToDraw=6;
+	   }
+	   else if((JButton)e.getSource()==drawFormulaSevenButton){
+		   cPanel.whichToDraw=7;
+	   }
 	   
 
 
