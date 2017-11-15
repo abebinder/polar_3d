@@ -12,8 +12,16 @@ public class FormulaDrawer {
 	int rotateCamera;
 	int rotateFig;
 	DoubleEvaluator eval;
+	double arbitraryx0;
+	double arbitraryy0;
+	double arbitraryz0;
+	double arbitraryxdir;
+	double arbitraryydir;
+	double arbitraryzdir;
+	String equation;
 
 	FormulaDrawer(PolarCanvas pCanvas){
+		equation="cos(x)";
 		eval=new DoubleEvaluator();
 		this.pCanvas=pCanvas;
 		utils=new MatrixUtils();
@@ -23,7 +31,6 @@ public class FormulaDrawer {
 	
 	
 	void drawCustomFormula(Graphics2D g2d){
-		String equation="cos(3*x)";
 		StaticVariableSet<Double> variables = new StaticVariableSet<Double>();
 		ArrayList<Point2D.Double> p_list= new ArrayList<Point2D.Double>();
 		ArrayList<Point3D> three_list=new ArrayList<Point3D>();
@@ -332,20 +339,23 @@ public class FormulaDrawer {
 		if(rotateFig==3){
 			next=utils.rotateAroundZ(next, theta);
 		}
+		if(rotateFig==4){
+			next=utils.rotateAroundArbitraryAxis(next, arbitraryx0, arbitraryy0, arbitraryz0, arbitraryxdir, arbitraryydir, arbitraryzdir, theta);
+		}
 		return next;
 	}
 
 	ArrayList<Point3D> CameraRotate(ArrayList<Point3D>three_list){
 		double theta=((double)pCanvas.iterations/1000)*2*Math.PI;
 		if(rotateCamera==1){
-			three_list=utils.rotateAllPointsAroundX((ArrayList<Point3D>)three_list.clone(), -theta);
+			three_list=utils.rotateAllPointsAroundX(three_list, -theta);
 
 		}
 		if(rotateCamera==2){
-		three_list=utils.rotateAllPointsAroundY((ArrayList<Point3D>)three_list.clone(), -theta);
+		three_list=utils.rotateAllPointsAroundY(three_list, -theta);
 		}
 		if(rotateCamera==3){
-			three_list=utils.rotateAllPointsAroundZ((ArrayList<Point3D>)three_list.clone(), -theta);
+			three_list=utils.rotateAllPointsAroundZ(three_list, -theta);
 
 		}
 		return three_list;

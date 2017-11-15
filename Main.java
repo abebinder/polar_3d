@@ -23,7 +23,7 @@ public class Main
 		PolarCanvas myCanvas = new PolarCanvas();
 		ControlPanel cpanel=new ControlPanel(myCanvas);
 		JFrame myFrame = new JFrame();
-		myFrame.setTitle("Basic Draw");
+		myFrame.setTitle("Trip Balls");
 		myFrame.setSize(300,300);
 
 		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -12,7 +12,6 @@ import javax.swing.event.*;
 class ControlPanel extends JPanel implements ChangeListener,ActionListener
  {
  	PolarCanvas cPanel;
-	JSlider customThetaSlider;
 	private JTextField pxField;
 	private JTextField pyField;
 	private JTextField pzField;
@@ -23,7 +22,6 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 	private JLabel tLabel;
 	private JButton noCameraRotation;
 	private JButton rotateCameraAroundY;
-	private JButton btnNewButton;
 	private JLabel lblCustomVectorAngle;
 	private JPanel panel_3;
 	private JTextArea txtrUseTheSlider;
@@ -43,6 +41,13 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 	private JButton drawAroundY;
 	private JButton btnDrawFigureNormally;
 	private JButton btnDrawCustomFormula;
+	private JPanel panel_6;
+	private JLabel lblNewLabel;
+	private JTextField txtCosx;
+	private JButton btnDrawFigureAround;
+	private JLabel lblDraw;
+	private JLabel lblAxis;
+	private JLabel lblCamera;
  
  	public ControlPanel(PolarCanvas cp)
 	{
@@ -54,6 +59,9 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 		
 		drawFormulaOneButton = new JButton("Draw Formula 1");
 		drawFormulaOneButton.addActionListener(this);
+		
+		lblDraw = new JLabel("Draw");
+		r.add(lblDraw);
 		r.add(drawFormulaOneButton);
 		
 		drawFormulaTwoButton = new JButton("Draw Formula 2");
@@ -84,6 +92,18 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 		btnDrawCustomFormula.addActionListener(this);
 		r.add(btnDrawCustomFormula);
 		
+		panel_6 = new JPanel();
+		r.add(panel_6);
+		panel_6.setLayout(new BoxLayout(panel_6, BoxLayout.X_AXIS));
+		
+		lblNewLabel = new JLabel("r=");
+		panel_6.add(lblNewLabel);
+		
+		txtCosx = new JTextField();
+		txtCosx.setText("cos(x)");
+		panel_6.add(txtCosx);
+		txtCosx.setColumns(10);
+		
 		JPanel panel = new JPanel();
 		
 		add(panel, BorderLayout.CENTER);
@@ -95,6 +115,9 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 		
 		btnDrawFigureNormally = new JButton("Draw Figure Normally");
 		btnDrawFigureNormally.addActionListener(this);
+		
+		lblAxis = new JLabel("Axis");
+		panel_5.add(lblAxis);
 		panel_5.add(btnDrawFigureNormally);
 		
 		drawAroundXAxis = new JButton("Draw Figure Around X");
@@ -109,9 +132,16 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 		drawAroundZ.addActionListener(this);
 		panel_5.add(drawAroundZ);
 		
+		btnDrawFigureAround = new JButton("Draw Figure Around Custom");
+		btnDrawFigureAround.addActionListener(this);
+		panel_5.add(btnDrawFigureAround);
+		
 		panel_4 = new JPanel();
 		panel.add(panel_4);
 		panel_4.setLayout(new BoxLayout(panel_4, BoxLayout.Y_AXIS));
+		
+		lblCamera = new JLabel("Camera");
+		panel_4.add(lblCamera);
 		
 		noCameraRotation = new JButton("No Camera Rotation");
 		panel_4.add(noCameraRotation);
@@ -132,14 +162,6 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 		JPanel panel_1 = new JPanel();
 		add(panel_1, BorderLayout.EAST);
 		panel_1.setLayout(new BorderLayout(0, 0));
-		
-		customThetaSlider = new JSlider(SwingConstants.VERTICAL, 0, 360, 0);
-		customThetaSlider.addChangeListener(this);
-		customThetaSlider.setPaintTicks(true);
-		customThetaSlider.setPaintLabels(true);
-		customThetaSlider.setMinorTickSpacing(10);
-		customThetaSlider.setMajorTickSpacing(50);
-		panel_1.add(customThetaSlider, BorderLayout.WEST);
 		
 		panel_3 = new JPanel();
 		panel_1.add(panel_3, BorderLayout.SOUTH);
@@ -185,10 +207,6 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 		tLabel = new JLabel("t");
 		panel_2.add(tLabel);
 		
-		btnNewButton = new JButton("Input Custom Vector");
-		btnNewButton.addActionListener(this);
-		panel_3.add(btnNewButton, BorderLayout.EAST);
-		
 		lblCustomVectorAngle = new JLabel("Custom Vector Angle Adjuster");
 		panel_1.add(lblCustomVectorAngle, BorderLayout.NORTH);
 		
@@ -220,6 +238,17 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 	   if((JButton)e.getSource()==drawAroundZ){
 		   cPanel.drawer.rotateFig=3;
 	   }
+	   if((JButton)e.getSource()==btnDrawFigureAround){
+		   cPanel.drawer.arbitraryx0=Double.parseDouble(pxField.getText());
+		   cPanel.drawer.arbitraryy0=Double.parseDouble(pyField.getText());
+		   cPanel.drawer.arbitraryz0=Double.parseDouble(pzField.getText());
+		   cPanel.drawer.arbitraryxdir=Double.parseDouble(xDirField.getText());
+		   cPanel.drawer.arbitraryydir=Double.parseDouble(yDirField.getText());
+		   cPanel.drawer.arbitraryzdir=Double.parseDouble(zDirField.getText());
+
+
+		   cPanel.drawer.rotateFig=4;
+	   }
 	   
 	   
 	   if((JButton)e.getSource()==noCameraRotation){
@@ -234,6 +263,7 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 	   if((JButton)e.getSource()==rotateCameraAroundZ){
 		   cPanel.drawer.rotateCamera=3;
 	   }
+	  
 	   
 	   
 
@@ -259,6 +289,7 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 		   cPanel.whichToDraw=7;
 	   }
 	   else if((JButton)e.getSource()==btnDrawCustomFormula){
+		   cPanel.drawer.equation=txtCosx.getText();
 		   cPanel.whichToDraw=8;
 	   }
 	   
