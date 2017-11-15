@@ -14,14 +14,16 @@ import java.awt.event.*;
 import java.awt.geom.*;
 import java.util.ArrayList;
 
-
+/*
+ * The canvas where the figures are drawn. Simply adjusts which formula to draw in paintcompoenent based
+ * on user selction and draws it. 
+ */
 public class PolarCanvas extends JPanel
 {
 	Color myColor;
 	MatrixUtils utils;
 	Line2D.Double myLine;
 	int iterations;
-	int paint_num;
 	int whichToDraw;
 	FormulaDrawer drawer;
 	public PolarCanvas ()
@@ -32,7 +34,6 @@ public class PolarCanvas extends JPanel
 		setPreferredSize(new Dimension(500,500));
 		setBackground(Color.WHITE);
 		iterations=0;
-		paint_num=5;
 		whichToDraw=1;
 	}
 
@@ -44,8 +45,7 @@ public class PolarCanvas extends JPanel
 		g2d.setStroke(new BasicStroke(2));
 		g2d.translate(getWidth()/2,getHeight()/2);
 		g2d.scale(1, -1);
-		ArrayList<Point2D.Double>p_list=new ArrayList<Point2D.Double>();	
-		ArrayList<Point3D>three_list=new ArrayList<Point3D>();
+		
 		
 		
 		if(whichToDraw==1){

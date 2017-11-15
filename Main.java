@@ -1,10 +1,7 @@
 
-/**
- * BasicDraw.java
- *
- *
- * Template for beginning graphics programs.
- *
+/*
+ * The main class houses the two panels, connects them, and runs the loop with the sleep timer that 
+ * causes animation.
  */
 
 import java.awt.BorderLayout;
@@ -15,9 +12,7 @@ import javax.swing.*;
 public class Main
 {
    
-    //For this type of program, event handling determines the path of 
-    //execution.  This main method "looks" like it sets up the frame
-    //and then stops.
+    
 
     public static void main(String[] args){
 		PolarCanvas myCanvas = new PolarCanvas();
@@ -34,6 +29,11 @@ public class Main
 		myFrame.pack(); 
 		myFrame.setResizable(true);
 		myFrame.setVisible(true);
+		
+		/*
+		 * Loop that has the sleep command which causes a feeling of animation. Must be out 
+		 * here and not in paintComponenet
+		 */
 		while (true) {
 			for (int i = 0; i < 1000; i++) {
 				myCanvas.iterations = i;
@@ -45,10 +45,9 @@ public class Main
 					e.printStackTrace();
 				}
 			} 
-			myCanvas.paint_num++;
 		}
 		
     }
-} // BasicDraw
+} 
 
 

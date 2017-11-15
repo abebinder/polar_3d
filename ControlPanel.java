@@ -6,7 +6,8 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 /*
- * Class that has the gui the user interacts with to change what is drawn
+ * Class that has the gui the user interacts with to change what is drawn. Made in windowbuilder
+ * so hard to read.
  */
 
 class ControlPanel extends JPanel implements ChangeListener,ActionListener
@@ -48,6 +49,8 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 	private JLabel lblDraw;
 	private JLabel lblAxis;
 	private JLabel lblCamera;
+	private JLabel lblCustomVectorAdjuster;
+	private JLabel lblCustomFormulaDraw;
  
  	public ControlPanel(PolarCanvas cp)
 	{
@@ -88,6 +91,9 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 		drawFormulaSevenButton.addActionListener(this);
 		r.add(drawFormulaSevenButton);
 		
+		lblCustomFormulaDraw = new JLabel("Custom Formula Draw");
+		r.add(lblCustomFormulaDraw);
+		
 		btnDrawCustomFormula = new JButton("Draw Custom Formula");
 		btnDrawCustomFormula.addActionListener(this);
 		r.add(btnDrawCustomFormula);
@@ -120,7 +126,7 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 		panel_5.add(lblAxis);
 		panel_5.add(btnDrawFigureNormally);
 		
-		drawAroundXAxis = new JButton("Draw Figure Around X");
+		drawAroundXAxis = new JButton("Draw Figure Around X Axis");
 		drawAroundXAxis.addActionListener(this);
 		panel_5.add(drawAroundXAxis);
 		
@@ -132,7 +138,7 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 		drawAroundZ.addActionListener(this);
 		panel_5.add(drawAroundZ);
 		
-		btnDrawFigureAround = new JButton("Draw Figure Around Custom");
+		btnDrawFigureAround = new JButton("Draw Figure Around Custom Axis");
 		btnDrawFigureAround.addActionListener(this);
 		panel_5.add(btnDrawFigureAround);
 		
@@ -147,17 +153,19 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 		panel_4.add(noCameraRotation);
 		noCameraRotation.addActionListener(this);
 		
-		rotateCameraAroundX = new JButton("rotate camera around x");
+		rotateCameraAroundX = new JButton("Rotate camera around X Axis");
 		panel_4.add(rotateCameraAroundX);
 		rotateCameraAroundX.addActionListener(this);
 		
-		rotateCameraAroundZ = new JButton("Rotate Camera Around Z");
-		panel_4.add(rotateCameraAroundZ);
-		rotateCameraAroundZ.addActionListener(this);
 		
-		rotateCameraAroundY = new JButton("Rotate Camera Around Y");
+		
+		rotateCameraAroundY = new JButton("Rotate Camera Around Y Axis");
 		panel_4.add(rotateCameraAroundY);
 		rotateCameraAroundY.addActionListener(this);
+		
+		rotateCameraAroundZ = new JButton("Rotate Camera Around Z Axis");
+		panel_4.add(rotateCameraAroundZ);
+		rotateCameraAroundZ.addActionListener(this);
 		
 		JPanel panel_1 = new JPanel();
 		add(panel_1, BorderLayout.EAST);
@@ -166,6 +174,9 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 		panel_3 = new JPanel();
 		panel_1.add(panel_3, BorderLayout.SOUTH);
 		panel_3.setLayout(new BorderLayout(0, 0));
+		
+		lblCustomVectorAdjuster = new JLabel("Custom Vector Adjuster");
+		panel_3.add(lblCustomVectorAdjuster, BorderLayout.NORTH);
 		
 		JPanel panel_2 = new JPanel();
 		panel_3.add(panel_2, BorderLayout.CENTER);
@@ -207,13 +218,28 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 		tLabel = new JLabel("t");
 		panel_2.add(tLabel);
 		
-		lblCustomVectorAngle = new JLabel("Custom Vector Angle Adjuster");
+		lblCustomVectorAngle = new JLabel("Help");
 		panel_1.add(lblCustomVectorAngle, BorderLayout.NORTH);
 		
 		txtrUseTheSlider = new JTextArea();
 		txtrUseTheSlider.setLineWrap(true);
 		txtrUseTheSlider.setWrapStyleWord(true);
-		txtrUseTheSlider.setText("Use the slider on the left to change angle. Input custom vector below by typing in numbers you want and pressing input button");
+		txtrUseTheSlider.setText("Welcome to the polar equation 3d rotate around axis grapher thingy."
+				+ "Use the draw formula buttons on the left to select premade polar equations to draw "
+				+ "onto the screen. They are, in order: \n 1. r= Cos(3*θ) \n 2. r=aθ \n 3. r=a(1+cos(θ)) and r=a(1+2cos(θ))"
+				+ "\n 4. r^8=cos(3θ) \n 5. r=1+2cos(4θ) and r=1+2cos(3θ) \n 6. r=e^cos(θ) -2cos(4θ)+((sin(θ/12))^5"
+				+ "\n 7. r=e^sin(θ) -2cos(4θ)+((cos(θ/4))^3"
+				+ " \n You can also enter your own equation in the textbox next to r=, just make sure "
+				+ "to format the equation using \"x\" as a substitute for theta "
+				+ "and in proper javaluator formatting ex: \" cos(4*x)\""
+				+" When you are done, press draw"
+				+ "custom equation button and it will attempt to interpert your equation and draw it. Use the draw around "
+				+ "axis buttons to choose which axis the figure is draw around. By default, it will be drawn on the xy plane, "
+				+ "but the figures are much more interesting when drawn around an axis. You can input a custom axis "
+				+ "for the figure to be rotated around using the textboxes on the bottom. Fill them in and click "
+				+ "rotate around custom axis to do this. Finally, rotate the  camera while drawing to observe the "
+				+ "3 dimensionality of the figures. They are mathematically facinating!"
+				+ "");
 		txtrUseTheSlider.setEditable(false);
 		panel_1.add(txtrUseTheSlider, BorderLayout.CENTER);
     
@@ -225,7 +251,9 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 	 }
    
    public void actionPerformed(ActionEvent e){
-	   
+	   /*
+	    * depending on what rotatefig is equal to, the figure will be drawn around some axis.
+	    */
 	   if((JButton)e.getSource()==btnDrawFigureNormally){
 		   cPanel.drawer.rotateFig=0;
 	   }
@@ -250,7 +278,10 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 		   cPanel.drawer.rotateFig=4;
 	   }
 	   
-	   
+	   /*
+	    * depending on the value rotateCamera is, the whole figure will or will not be rotated
+	    * by some angle after all points are established. 
+	    */
 	   if((JButton)e.getSource()==noCameraRotation){
 		   cPanel.drawer.rotateCamera=0;
 	   }
@@ -266,7 +297,9 @@ class ControlPanel extends JPanel implements ChangeListener,ActionListener
 	  
 	   
 	   
-
+	   /*
+	    * changes the polar formula that is drawn.
+	    */
 	   if((JButton)e.getSource()==drawFormulaOneButton){
 		   cPanel.whichToDraw=1;
 	   }

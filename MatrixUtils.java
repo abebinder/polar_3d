@@ -271,7 +271,10 @@ public class MatrixUtils {
     }
 	
 	
-	
+	/*
+	 * The method that takes a 3d point and turns it into a 3d projection using
+	 * the perspective transformation
+	 */
 	ArrayList<Point2D.Double> convert3DPointsTo2DPoints(ArrayList<Point3D> a, double e){
 		ArrayList<Point2D.Double>two_list=new ArrayList<Point2D.Double>();
     	for(int i=0; i<a.size(); i++){
@@ -287,7 +290,7 @@ public class MatrixUtils {
     
     
     /*
-     * Scales as 3d point by 150 in all directionss
+     * Scales as 3d point by some number
      */
     void scalePoint3D(ArrayList<Point3D> a, int scale){ 
     	for(int i=0; i<a.size(); i++){
