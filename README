@@ -1,0 +1,9 @@
+A utility that graphs polar formulas
+and can transform them into cool 3d shapes by drawing them aorund an axis
+To use, compile all and run main. Use the draw formula to predraw custom formulas.
+(listed within the program)
+Use draw custom formula to draw a user-defined custom polar equation.
+Use draw around axis to draw the figure around an axis.
+You can customize the axis the figure is drawn around using the textfields at the  bottom.
+Use the rotate camera buttons to better view the figure in 3d. 
+
